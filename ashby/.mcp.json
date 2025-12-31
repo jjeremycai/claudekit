@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "ashby": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${CLAUDE_PLUGIN_ROOT}/mcp-server",
+        "python",
+        "server.py"
+      ],
+      "env": {
+        "ASHBY_API_KEY": "${ASHBY_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ashby",
+  "version": "0.1.0",
+  "description": "Ashby ATS integration for recruiting workflows - manage candidates, jobs, applications, interviews, and offers",
+  "author": {
+    "name": "Jeremy Cai"
+  },
+  "keywords": ["ashby", "recruiting", "ats", "hiring", "candidates", "interviews"],
+  "mcpServers": "./.mcp.json"
+}
