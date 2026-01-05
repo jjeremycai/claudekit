@@ -1,58 +1,73 @@
-# Claude Code Skills & Plugins
+# Claude Config
 
-A collection of custom skills, agents, commands, and plugins for Claude Code.
-
-## Contents
-
-### Plugins
-
-| Plugin | Description |
-|--------|-------------|
-| [ashby](./ashby/) | Ashby ATS integration for recruiting workflows |
-| [cto-audit](./cto-audit/) | CTO-level codebase audit skill |
-| [frontend-design](./frontend-design/) | Frontend design engineering skill |
-
-### Commands
-
-Custom slash commands in [`commands/`](./commands/):
-- `/beads-execute` - Execute Beads tickets with subagent parallelization
-- `/beads-write` - Generate Beads tickets for a project
-- `/ios-release` - Build and upload iOS app to App Store Connect
-- `/new-pr` - Create a new PR with smart branch detection
-- `/review-pr` - Thorough senior engineer PR review
-- `/verify-changes` - Verify PR feedback before merge
-
-### Agents
-
-Custom agents in [`agents/`](./agents/):
-- `auditor` - Deep codebase audit
-- `auth-expert` - Auth debugging (PKCE, OAuth, sessions)
-- `code-reviewer` - Code review specialist
-- `debugger` - Debugging specialist
-- `extract-pattern` - Extract patterns from GitHub repos
-- `frontend-engineer` - Frontend design engineer
-- `plan-executor` - Execute implementation plans
-- `vercel-debugger` - Vercel build/deployment debugging
+Personal Claude Code plugin marketplace. Install to get access to custom agents, commands, skills, and plugins.
 
 ## Installation
 
-### Install a plugin
-
 ```bash
-claude --plugin-dir /path/to/skills/ashby
+claude plugin install jjeremycai/claude-config
 ```
 
-### Install commands
-
+Or manually:
 ```bash
-cp commands/*.md ~/.claude/commands/
+git clone https://github.com/jjeremycai/claude-config.git
+claude --plugin-dir /path/to/claude-config
 ```
 
-### Install agents
+## Structure
 
-```bash
-cp agents/*.md ~/.claude/agents/
 ```
+claude-config/
+├── plugins/           # MCP-based plugins
+│   └── ashby/         # Ashby ATS integration
+├── agents/            # Specialized agents
+├── commands/          # Slash commands
+└── skills/            # Knowledge skills
+```
+
+## Plugins
+
+| Plugin | Description |
+|--------|-------------|
+| [ashby](./plugins/ashby/) | Ashby ATS integration - manage candidates, jobs, interviews |
+
+## Agents
+
+| Agent | Description |
+|-------|-------------|
+| ashby-recruiter | Recruiting pipeline management |
+| auditor | Codebase audit for simplicity |
+| auth-expert | Auth debugging (PKCE, OAuth, sessions) |
+| code-reviewer | Code review for quality and security |
+| debugger | Error and test failure debugging |
+| extract-pattern | Extract patterns from GitHub repos |
+| frontend-engineer | High-quality UI development |
+| plan-executor | Execute implementation plans |
+| vercel-debugger | Vercel build/deployment debugging |
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/beads-execute` | Execute Beads tickets |
+| `/beads-write` | Generate Beads tickets |
+| `/candidates` | Search Ashby candidates |
+| `/ios-release` | Build and upload iOS app |
+| `/jobs` | Search Ashby jobs |
+| `/new-pr` | Create PR from changes |
+| `/pipeline` | View Ashby recruiting pipeline |
+| `/review-pr` | Senior engineer PR review |
+| `/schedule` | Schedule Ashby interview |
+| `/verify-changes` | Verify PR feedback addressed |
+
+## Skills
+
+| Skill | Description |
+|-------|-------------|
+| ashby-api-guide | Ashby API documentation |
+| ashby-workflows | Recruiting workflow guidance |
+| cto-audit | CTO-level codebase audit |
+| frontend-design | Frontend engineering skill |
 
 ## License
 
