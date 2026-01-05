@@ -9,7 +9,7 @@ Personal Claude Code plugin marketplace containing shareable skills, agents, com
 ## Structure
 
 ```
-claude-config/
+claude-toolkit/
 ├── plugins/              # MCP-based plugins (require servers)
 │   └── ashby/            # Ashby ATS integration
 ├── agents/               # Specialized agents
@@ -72,8 +72,8 @@ Skill content...
 
 ```bash
 # Option 1: Plugin flag
-claude --plugin-dir /path/to/claude-config
+claude --plugin-dir /path/to/claude-toolkit
 
 # Option 2: Global install
-cp -r claude-config ~/.claude/plugins/claude-config
+cp -r claude-toolkit ~/.claude/plugins/claude-toolkit
 ```

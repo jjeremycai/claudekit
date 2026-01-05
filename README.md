@@ -1,23 +1,23 @@
-# Claude Config
+# Claude Toolkit
 
 Personal Claude Code plugin marketplace. Install to get access to custom agents, commands, skills, and plugins.
 
 ## Installation
 
 ```bash
-claude plugin install jjeremycai/claude-config
+claude plugin install jjeremycai/claude-toolkit
 ```
 
 Or manually:
 ```bash
-git clone https://github.com/jjeremycai/claude-config.git
-claude --plugin-dir /path/to/claude-config
+git clone https://github.com/jjeremycai/claude-toolkit.git
+claude --plugin-dir /path/to/claude-toolkit
 ```
 
 ## Structure
 
 ```
-claude-config/
+claude-toolkit/
 ├── plugins/           # MCP-based plugins
 │   └── ashby/         # Ashby ATS integration
 ├── agents/            # Specialized agents
