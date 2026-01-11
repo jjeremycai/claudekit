@@ -2,7 +2,7 @@
 description: Review code changes with @code-reviewer subagents
 argument-hint: [pr-url-or-number] [--verify]
 agent: plan
-allowed-tools: Bash, Read, Grep, Glob, Task, WebFetch, mcp__claude-in-chrome__*
+allowed-tools: Bash, Read, Grep, Glob, Task, WebFetch, mcp__claude-in-chrome__*, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
 ---
 
 Review the code changes using THREE (3) @code-reviewer subagents and correlate results into a summary ranked by severity. Use the provided user guidance to steer the review and focus on specific code paths, changes, and/or areas of concern.
@@ -30,9 +30,9 @@ git diff --staged
 git show HEAD --stat
 git diff HEAD~1..HEAD
 
-# If PR provided
-gh pr view $PR --json title,body,baseRefName,headRefName
-gh pr diff $PR
+# If PR provided (extract number from $ARGUMENTS)
+gh pr view <pr-number> --json title,body,baseRefName,headRefName
+gh pr diff <pr-number>
 ```
 
 ## Standard Review
@@ -54,9 +54,9 @@ Each agent should read the full files being modified (not just diffs) and return
 When `--verify` is present, also check:
 
 ```bash
-# Get PR review comments
-gh pr view $PR --comments
-gh api repos/{owner}/{repo}/pulls/{pr_number}/comments --jq '.[] | {path: .path, line: .line, body: .body}'
+# Get PR review comments (replace <pr-number> with actual number from $ARGUMENTS)
+gh pr view <pr-number> --comments
+gh api repos/:owner/:repo/pulls/<pr-number>/comments --jq '.[] | {path: .path, line: .line, body: .body}'
 ```
 
 For each issue raised in reviews:
