@@ -1,6 +1,6 @@
 ---
-name: missive-draft-assistant
-description: Autonomous inbox review and draft creation for Missive conversations
+name: missive-assistant
+description: Missive inbox management, drafting, and email automation
 whenToUse: |
   Use this agent when the user wants to:
   - Review their inbox and create draft replies
@@ -11,7 +11,7 @@ whenToUse: |
   <example>
   Context: User wants to catch up on their inbox
   user: "Review my inbox and draft replies"
-  assistant: "I'll use the missive-draft-assistant agent to review your conversations and create drafts for ones that need responses."
+  assistant: "I'll use the missive-assistant agent to review your conversations and create drafts for ones that need responses."
   <commentary>
   The user explicitly wants inbox review and drafts created. This is the primary use case for this agent.
   </commentary>
@@ -20,7 +20,7 @@ whenToUse: |
   <example>
   Context: User is doing a recurring inbox check
   user: "Do my morning email pass"
-  assistant: "I'll launch the missive-draft-assistant to process your inbox and prepare draft replies."
+  assistant: "I'll launch the missive-assistant to process your inbox and prepare draft replies."
   <commentary>
   Morning/afternoon/evening inbox passes are a key workflow for this agent.
   </commentary>
@@ -29,7 +29,7 @@ whenToUse: |
   <example>
   Context: User wants help with email responses
   user: "Help me catch up on emails that need responses"
-  assistant: "I'll use the missive-draft-assistant to identify conversations needing responses and draft replies for your review."
+  assistant: "I'll use the missive-assistant to identify conversations needing responses and draft replies for your review."
   <commentary>
   The user wants to catch up on email responses, which is exactly what this agent does.
   </commentary>
