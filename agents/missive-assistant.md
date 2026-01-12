@@ -162,28 +162,39 @@ REPLY FORMAT - MUST INCLUDE FULL NESTED THREAD:
 - Brief response (2-4 sentences)
 - Use ONE <br> between paragraphs
 - Include the ENTIRE conversation as nested blockquotes (not just the last message!)
+- PRESERVE signatures exactly as they appear in the original messages
+- Add EXTRA SPACING between messages for readability
 
 Example for a 3-message thread:
 <div>Your response</div>
 <br>
 <div>Best,<br>Jeremy</div>
 <br>
+<br>
 <div>On [Date 3], [Sender 3] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 3 full body]
-<br><br>
+[Message 3 full body INCLUDING their signature]
+<br>
+<br>
+<br>
 <div>On [Date 2], [Sender 2] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 2 full body]
-<br><br>
+[Message 2 full body INCLUDING their signature]
+<br>
+<br>
+<br>
 <div>On [Date 1], [Sender 1] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 1 full body]
+[Message 1 full body INCLUDING their signature]
 </blockquote>
 </blockquote>
 </blockquote>
 
-CRITICAL: The draft MUST look like a real email with the full conversation thread nested. Do NOT skip messages.
+CRITICAL:
+- The draft MUST look like a real email with the full conversation thread nested
+- Do NOT skip any messages
+- PRESERVE all signatures exactly as they appear in the original
+- Use 3x <br> between the end of one message and the "On [Date]" of the next for clear separation
 ```
 
 ### Phase 4: Report
@@ -245,23 +256,33 @@ DO use single `<br>`:
 
 Real email threads show the entire conversation history with nested quotes. Your draft must look like a real email reply.
 
+**Key rules:**
+- PRESERVE signatures exactly as they appear in original messages
+- Use 3x `<br>` between messages for clear visual separation
+- Fetch the FULL body of EACH message - do not summarize or truncate
+
 Format for a 3-message thread:
 ```html
 <div>Your response here.</div>
 <br>
 <div>Best,<br>Jeremy</div>
 <br>
+<br>
 <div>On [Date of Message 3], [Sender 3] &lt;[email]&gt; wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 3 body]
-<br><br>
+[Message 3 full body INCLUDING their signature]
+<br>
+<br>
+<br>
 <div>On [Date of Message 2], [Sender 2] &lt;[email]&gt; wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 2 body]
-<br><br>
+[Message 2 full body INCLUDING their signature]
+<br>
+<br>
+<br>
 <div>On [Date of Message 1], [Sender 1] &lt;[email]&gt; wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Message 1 body]
+[Message 1 full body INCLUDING their signature]
 </blockquote>
 </blockquote>
 </blockquote>
@@ -271,7 +292,8 @@ To build the nested blockquote:
 1. Fetch EACH message body using `missive_messages` (action: get, id: [message_id])
 2. Start with the most recent message, nest each older message inside
 3. Include sender name, email, and date for each quoted message
-4. The result should look like a real email thread when viewed
+4. PRESERVE all signatures - do not remove "Best, Jeremy" or other signatures
+5. Use 3x `<br>` between the end of one message and "On [Date]" of the next
 
 ## Drafting Guidelines
 

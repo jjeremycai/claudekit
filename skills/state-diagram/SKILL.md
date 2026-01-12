@@ -234,8 +234,8 @@ Add JSDoc or block comment in the component file:
  * stateDiagram-v2
  *     [*] --> Idle
  *     Idle --> Submitting : submit
- *     Submitting --> Success : 200
- *     Submitting --> Error : 4xx
+ *     Submitting --> Success : ok
+ *     Submitting --> Error : failed
  * ```
  */
 ```

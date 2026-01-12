@@ -44,29 +44,48 @@ missive_drafts (action: create, draft: {
 Reply from the address the original email was sent TO (check `to_fields` of incoming message).
 
 ### Paragraph Spacing
-Use TWO line breaks between paragraphs:
+Use ONE `<br>` between paragraphs:
 ```html
-First paragraph<br><br>
-
-Second paragraph<br><br>
-
-Best,<br>
-Jeremy
+<div>First paragraph</div>
+<br>
+<div>Second paragraph</div>
+<br>
+<div>Best,<br>Jeremy</div>
 ```
 
 DO NOT use `<p>` tags - they create inconsistent spacing in email clients.
 
-### Quoted Content (REQUIRED)
-Every reply MUST include the original message in a blockquote to preserve conversation context:
+### FULL Thread Quoted (REQUIRED)
+Every reply MUST include the ENTIRE conversation thread as nested blockquotes - not just the last message.
+
+**Key rules:**
+- Fetch ALL message bodies using missive_messages (action: get)
+- PRESERVE signatures exactly as they appear
+- Use 3x `<br>` between messages for clear separation
 
 ```html
 <div>Your response here.</div>
 <br>
-<div>Another paragraph if needed.</div>
-<br><br>
-<div>On [Month Day, Year], [Sender Name] &lt;[sender@email.com]&gt; wrote:</div>
+<div>Best,<br>Jeremy</div>
+<br>
+<br>
+<div>On [Date 3], [Sender 3] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Full original message body from missive_messages response]
+[Message 3 full body WITH signature]
+<br>
+<br>
+<br>
+<div>On [Date 2], [Sender 2] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 2 full body WITH signature]
+<br>
+<br>
+<br>
+<div>On [Date 1], [Sender 1] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 1 full body WITH signature]
+</blockquote>
+</blockquote>
 </blockquote>
 ```
 

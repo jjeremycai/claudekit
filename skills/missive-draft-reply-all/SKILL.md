@@ -92,16 +92,37 @@ Use ONE `<br>` between paragraphs (not two):
 <div>Best,<br>Jeremy</div>
 ```
 
-### 5. Include Quoted Content
-Every reply MUST include the original message in a blockquote:
+### 5. Include FULL Conversation Thread
+Every reply MUST include the ENTIRE thread as nested blockquotes - not just the last message.
+
+**Key rules:**
+- Fetch ALL message bodies using missive_messages (action: get)
+- PRESERVE signatures exactly as they appear
+- Use 3x `<br>` between messages for clear separation
+
 ```html
 <div>Your response</div>
 <br>
 <div>Best,<br>Jeremy</div>
 <br>
-<div>On [Date], [Sender] wrote:</div>
+<br>
+<div>On [Date 3], [Sender 3] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Original message body - fetch using missive_messages action:get]
+[Message 3 full body WITH signature]
+<br>
+<br>
+<br>
+<div>On [Date 2], [Sender 2] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 2 full body WITH signature]
+<br>
+<br>
+<br>
+<div>On [Date 1], [Sender 1] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 1 full body WITH signature]
+</blockquote>
+</blockquote>
 </blockquote>
 ```
 
