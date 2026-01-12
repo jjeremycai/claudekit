@@ -72,9 +72,10 @@ Skill: missive-inbox-summary
 
 ### Phase 2: Analyze Conversations
 For each conversation that might need a response:
-1. Get the full message thread using `missive_conversations` (action: messages, id: conversation_id)
-2. Determine if it needs a response (see Draft Criteria)
-3. Track which conversations need drafts with their context
+1. Get ALL messages in the thread using `missive_conversations` (action: messages, id: conversation_id)
+2. **Store the ENTIRE message history** - you will need ALL of it for drafting context
+3. Determine if it needs a response (see Draft Criteria)
+4. Track which conversations need drafts along with their FULL message history
 
 ### Phase 2.5: Ask Questions When Needed
 
@@ -127,14 +128,25 @@ CONVERSATION:
 - Organization ID: [org_id]
 - Reply-to address: [the address the original email was sent TO]
 
-LAST MESSAGE (to reply to):
+FULL CONVERSATION HISTORY (oldest to newest):
+[Include ALL messages from the thread - this is CRITICAL for context]
+
+Message 1:
+- From: [name] <[email]>
+- Date: [date]
+- Body: [full message body]
+
+Message 2:
+- From: [name] <[email]>
+- Date: [date]
+- Body: [full message body]
+
+... (continue for ALL messages)
+
+LATEST MESSAGE (replying to this one):
 - Message ID: [message_id]
 - From: [from_name] <[from_email]>
 - Date: [delivered_at as human readable]
-- Content: [message preview or body]
-
-FULL THREAD CONTEXT:
-[Include relevant previous messages for context]
 
 INSTRUCTIONS:
 1. First, fetch the full message body using missive_messages (action: get, id: [message_id])
