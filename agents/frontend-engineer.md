@@ -124,3 +124,23 @@ Production-ready components:
 - Responsive: works on mobile and desktop
 - Accessible markup and interactions
 - No unnecessary complexity
+
+## Post-Implementation: Review & Fix
+
+After completing frontend work, run the quality assurance workflow:
+
+1. **Review** - Use the `review` skill to analyze your changes:
+   ```
+   Skill: review
+   ```
+   This spawns parallel code reviewers to find bugs, security issues, and pattern violations.
+
+2. **Fix** - If issues are found, use the `fix` skill to execute fixes:
+   ```
+   Skill: fix
+   ```
+   This parses review output and spawns engineers to fix critical/warning issues.
+
+3. **Visual Verify** - Screenshot the UI again after fixes to ensure nothing broke.
+
+Only mark work as complete after the review→fix cycle passes with no critical issues.

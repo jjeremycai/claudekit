@@ -1,0 +1,9 @@
+{
+  "missive": {
+    "command": "npx",
+    "args": ["tsx", "${CLAUDE_PLUGIN_ROOT}/mcp/server.ts"],
+    "env": {
+      "MISSIVE_API_TOKEN": "missive_pat-JoxgjEVISvGthGy35W1beJuTP0xFDk6rhV-KcVp1zt6z9yqUpApx2NLrljNCVCg9Mt1ZIg"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 description: Review code changes with @code-reviewer subagents
 argument-hint: [pr-url-or-number] [--verify]
 agent: plan
-allowed-tools: Bash, Read, Grep, Glob, Task, WebFetch, mcp__claude-in-chrome__*, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
+allowed-tools: Bash, Read, Grep, Glob, Task, WebFetch, AskUserQuestion, Skill, mcp__claude-in-chrome__*, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
 ---
 
 Review the code changes using THREE (3) @code-reviewer subagents and correlate results into a summary ranked by severity. Use the provided user guidance to steer the review and focus on specific code paths, changes, and/or areas of concern.
@@ -111,3 +111,31 @@ Correlate all agent findings, deduplicate, rank by severity:
 - **Ready to merge** — No critical issues, CI passing
 - **Changes needed** — Critical issues or unaddressed feedback
 - **Needs discussion** — Fundamental approach questions
+
+## Next Actions
+
+After presenting the review summary, prompt for next action using AskUserQuestion:
+
+**If critical or warning issues were found:**
+
+```
+AskUserQuestion:
+  question: "How would you like to proceed with the issues found?"
+  header: "Next step"
+  options:
+    - label: "Run /fix (Recommended)"
+      description: "Auto-fix critical and warning issues using @engineer agents"
+    - label: "Run /fix --critical-only"
+      description: "Only fix critical issues, skip warnings"
+    - label: "Skip fixes"
+      description: "I'll fix these manually"
+```
+
+If user selects a fix option, invoke the skill:
+```
+Skill: fix           # or fix --critical-only
+```
+
+**If no critical/warning issues (only suggestions or clean):**
+
+Skip the prompt - review is complete. Inform user the code is ready to merge.

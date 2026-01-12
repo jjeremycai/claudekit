@@ -201,6 +201,10 @@ const tools: Tool[] = [
           type: "boolean",
           description: "Filter by closed status",
         },
+        inbox: {
+          type: "boolean",
+          description: "If true, return inbox conversations (open items across all mailboxes)",
+        },
         limit: {
           type: "number",
           description: "Max results to return (default 50)",
@@ -639,6 +643,7 @@ async function handleConversations(args: any): Promise<any> {
     team,
     assignee,
     closed,
+    inbox,
     limit = 50,
     offset = 0,
   } = args;
@@ -648,6 +653,7 @@ async function handleConversations(args: any): Promise<any> {
       const params = new URLSearchParams();
       params.append("limit", String(limit));
       params.append("offset", String(offset));
+      if (inbox) params.append("inbox", "true");
       if (mailbox) params.append("mailbox", mailbox);
       if (shared_label) params.append("shared_label", shared_label);
       if (team) params.append("team", team);

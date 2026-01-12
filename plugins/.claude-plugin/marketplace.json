@@ -1,0 +1,21 @@
+{
+  "name": "jeremy-plugins",
+  "description": "Personal plugins for Claude Code",
+  "owner": {
+    "name": "Jeremy Cai"
+  },
+  "plugins": [
+    {
+      "name": "missive",
+      "source": "./missive",
+      "description": "Missive inbox integration with MCP server",
+      "version": "0.1.0"
+    },
+    {
+      "name": "ashby",
+      "source": "./ashby",
+      "description": "Ashby ATS integration with MCP server",
+      "version": "0.1.0"
+    }
+  ]
+}
