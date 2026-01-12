@@ -47,17 +47,74 @@ Follow every possible path through the component:
 - Edge cases (empty states, loading states, race conditions)
 - Recovery paths (retry, reset, back navigation)
 
-## Mermaid Syntax Reference
+## Mermaid Syntax Rules
+
+### CRITICAL: GitHub-Safe Labels
+
+GitHub's Mermaid parser is strict. **Transition labels must be simple text only.**
+
+#### Forbidden Characters in Labels
+
+These characters WILL break rendering:
+
+| Character | Example (BAD) | Why It Breaks |
+|-----------|---------------|---------------|
+| `=` | `status = approved` | Assignment/comparison syntax |
+| `==`, `!=` | `type == "run"` | Comparison operators |
+| `>=`, `<=` | `count >= 3` | Comparison operators |
+| `/` | `POST /api/chat` | Path separators |
+| `{`, `}` | `{id}`, `{user}` | Template syntax |
+| `@` | `@mention` | Special character |
+| `()` | `fetch()`, `run()` | Method call syntax |
+| `.` | `user.save()` | Property access |
+| `:` (extra) | `key: value` | Only one colon allowed (the label separator) |
+| `,` | `a, b, c` | List separator |
+| `"`, `'` | `type == "run"` | Quotes |
+| `<`, `>` | `count > 0` | Comparison/HTML |
+| `&` | `a & b` | Boolean/HTML entity |
+| `|` | `a | b` | Boolean/pipe |
+
+#### Safe Label Patterns
+
+Use simple, human-readable phrases:
+
+| Instead of (BAD) | Use (GOOD) |
+|------------------|------------|
+| `type == "run"` | `run action` |
+| `POST /api/chat` | `send message` |
+| `exitCode == 0` | `success` |
+| `status = approved` | `approved` |
+| `user.save()` | `save user` |
+| `fetch()` | `fetch` |
+| `count >= 3` | `limit reached` |
+| `response.ok` | `ok response` |
+| `action.type === "SUBMIT"` | `submit` |
+| `attempts < maxRetries` | `can retry` |
+
+#### Where Technical Details Go
+
+Move technical details to accompanying tables, NOT diagram labels:
+
+```markdown
+### Transitions
+
+| From | To | Label | Technical Trigger |
+|------|-----|-------|-------------------|
+| Idle | Loading | fetch | `fetch()` called |
+| Loading | Success | success | `response.status === 200` |
+| Loading | Error | error | `response.status >= 400` |
+| Pending | Approved | approved | `POST /approvals/{id}` with `status=approved` |
+```
 
 ### Basic State Diagram
 
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle --> Loading : fetch()
+    Idle --> Loading : fetch
     Loading --> Success : data received
     Loading --> Error : request failed
-    Error --> Loading : retry()
+    Error --> Loading : retry
     Success --> [*]
 ```
 
@@ -73,14 +130,16 @@ stateDiagram-v2
     Validating --> Idle : invalid
     Validating --> Submitting : valid
 
-    Submitting --> Success : 200 OK
-    Submitting --> Error : 4xx/5xx
+    Submitting --> Success : ok
+    Submitting --> Error : failed
 
-    Error --> Submitting : retry [attempts < 3]
+    Error --> Submitting : retry
     Error --> Idle : reset
 
     Success --> [*]
 ```
+
+**Note:** Guard conditions like `[attempts < 3]` break GitHub rendering. Document guards in a table instead.
 
 ### Composite States (Nested)
 
@@ -108,10 +167,12 @@ stateDiagram-v2
 
     state check_result <<choice>>
     Processing --> check_result
-    check_result --> Success : if valid
-    check_result --> PartialSuccess : if warnings
-    check_result --> Failure : if errors
+    check_result --> Success : valid
+    check_result --> PartialSuccess : warnings
+    check_result --> Failure : errors
 ```
+
+**Note:** Use simple labels like `valid` instead of `if valid` - the choice node already implies conditionality.
 
 ## Documentation Update Rules
 
@@ -143,16 +204,25 @@ If exists, add a dedicated section with the full diagram and transition table:
 ...
 
 ### Transitions
-| From | To | Trigger | Guard |
-|------|-----|---------|-------|
-| Idle | Loading | fetch() | - |
+| From | To | Label | Technical Trigger | Guard |
+|------|-----|-------|-------------------|-------|
+| Idle | Loading | fetch | `fetch()` called | - |
+| Loading | Success | success | `response.status === 200` | - |
+| Error | Loading | retry | `retry()` called | `attempts < maxRetries` |
 ...
 
 ### Diagram
 \`\`\`mermaid
-...
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Loading : fetch
+    Loading --> Success : success
+    Loading --> Error : failed
+    Error --> Loading : retry
 \`\`\`
 ```
+
+**Key:** The diagram uses simple labels; the table contains technical details.
 
 ### 3. Inline Comments
 Add JSDoc or block comment in the component file:
@@ -178,12 +248,13 @@ Only if no existing docs and component is complex enough to warrant dedicated do
 Before finalizing the diagram, verify:
 
 - [ ] **Every state identified** - Including implicit states (idle, pristine, dirty)
-- [ ] **Every transition mapped** - With trigger event labeled
+- [ ] **Every transition mapped** - With simple human-readable labels
 - [ ] **Error states included** - What happens when things fail?
 - [ ] **Initial state marked** - `[*] --> InitialState`
 - [ ] **Terminal states marked** - `FinalState --> [*]` (if applicable)
-- [ ] **Guard conditions noted** - `[condition]` syntax for conditional transitions
-- [ ] **Side effects documented** - Notes for important actions
+- [ ] **No forbidden characters** - Labels use only simple text (see Forbidden Characters table)
+- [ ] **Technical details in table** - API paths, operators, method names go in transitions table
+- [ ] **Side effects documented** - Notes for important actions (no special chars in notes either)
 
 ## Example Output
 
@@ -200,15 +271,15 @@ stateDiagram-v2
     }
 
     Idle --> Validating : submit
-    note right of Validating : Email format, password length
+    note right of Validating : Email format and password length
 
     Validating --> Idle : validation failed
     Validating --> Authenticating : validation passed
 
-    Authenticating --> Success : 200 + token
-    Authenticating --> RateLimited : 429
-    Authenticating --> InvalidCredentials : 401
-    Authenticating --> ServerError : 5xx
+    Authenticating --> Success : authenticated
+    Authenticating --> RateLimited : rate limited
+    Authenticating --> InvalidCredentials : wrong credentials
+    Authenticating --> ServerError : server error
 
     InvalidCredentials --> Idle : dismiss error
     ServerError --> Authenticating : retry
@@ -218,6 +289,15 @@ stateDiagram-v2
     note right of Success : Redirect to dashboard
 ```
 
+### Accompanying Transitions Table
+
+| From | To | Label | Technical Detail |
+|------|-----|-------|------------------|
+| Authenticating | Success | authenticated | HTTP 200 with token |
+| Authenticating | RateLimited | rate limited | HTTP 429 |
+| Authenticating | InvalidCredentials | wrong credentials | HTTP 401 |
+| Authenticating | ServerError | server error | HTTP 5xx |
+
 **Files updated:**
-- `README.md` - Added Architecture section
+- `README.md` - Added Architecture section with diagram and transitions table
 - `src/components/LoginForm.tsx` - Added inline JSDoc diagram

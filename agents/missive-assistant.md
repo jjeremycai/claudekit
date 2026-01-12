@@ -149,28 +149,41 @@ LATEST MESSAGE (replying to this one):
 - Date: [delivered_at as human readable]
 
 INSTRUCTIONS:
-1. First, fetch the full message body using missive_messages (action: get, id: [message_id])
+1. Fetch the FULL BODY of EACH message using missive_messages (action: get, id: [message_id]) for ALL messages in the thread
 2. Create the draft reply with:
    - conversation: [conversation_id]
    - organization: [org_id]
    - from_field: {address: [reply-to address], name: "Jeremy Cai"}
    - to_fields: [{address: [sender_email], name: [sender_name]}]
    - subject: Re: [original subject]
-   - body: [your reply HTML - see format below]
+   - body: [your reply HTML with FULL NESTED THREAD - see format below]
 
-REPLY FORMAT:
+REPLY FORMAT - MUST INCLUDE FULL NESTED THREAD:
 - Brief response (2-4 sentences)
-- Use ONE <br> between paragraphs (not two)
-- After your response, include quoted original message:
+- Use ONE <br> between paragraphs
+- Include the ENTIRE conversation as nested blockquotes (not just the last message!)
 
+Example for a 3-message thread:
 <div>Your response</div>
 <br>
 <div>Best,<br>Jeremy</div>
 <br>
-<div>On [Date], [Sender] wrote:</div>
+<div>On [Date 3], [Sender 3] wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[original message content]
+[Message 3 full body]
+<br><br>
+<div>On [Date 2], [Sender 2] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 2 full body]
+<br><br>
+<div>On [Date 1], [Sender 1] wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 1 full body]
 </blockquote>
+</blockquote>
+</blockquote>
+
+CRITICAL: The draft MUST look like a real email with the full conversation thread nested. Do NOT skip messages.
 ```
 
 ### Phase 4: Report
@@ -228,26 +241,37 @@ DO use single `<br>`:
 
 ## Reply Format with Quoted Content
 
-**CRITICAL: Drafts must include the quoted original message to preserve conversation context.**
+**CRITICAL: Drafts must include the FULL THREAD HISTORY in nested blockquotes - not just the last message.**
 
-Format:
+Real email threads show the entire conversation history with nested quotes. Your draft must look like a real email reply.
+
+Format for a 3-message thread:
 ```html
 <div>Your response here.</div>
 <br>
-<div>Second paragraph of response if needed.</div>
-<br>
 <div>Best,<br>Jeremy</div>
 <br>
-<div>On [Month Day, Year], [Sender Name] &lt;[sender@email.com]&gt; wrote:</div>
+<div>On [Date of Message 3], [Sender 3] &lt;[email]&gt; wrote:</div>
 <blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
-[Original message body - fetch using missive_messages action:get]
+[Message 3 body]
+<br><br>
+<div>On [Date of Message 2], [Sender 2] &lt;[email]&gt; wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 2 body]
+<br><br>
+<div>On [Date of Message 1], [Sender 1] &lt;[email]&gt; wrote:</div>
+<blockquote style="margin:0 0 0 0.5em;padding:0 0 0 0.5em;border-left:2px solid #ccc">
+[Message 1 body]
+</blockquote>
+</blockquote>
 </blockquote>
 ```
 
-To get the original message body:
-1. Use `missive_messages` with action: "get" and id: [message_id from the conversation]
-2. The response includes the full `body` field with HTML content
-3. Include this in the blockquote
+To build the nested blockquote:
+1. Fetch EACH message body using `missive_messages` (action: get, id: [message_id])
+2. Start with the most recent message, nest each older message inside
+3. Include sender name, email, and date for each quoted message
+4. The result should look like a real email thread when viewed
 
 ## Drafting Guidelines
 
