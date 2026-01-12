@@ -1,7 +1,6 @@
-# contact-management
-
-This skill provides patterns for managing contacts in Missive. It should be used when Claude is asked to "add a contact", "update contact info", "organize contacts", "find a contact", "manage contact groups", "import contacts", or is working with contact data.
-
+---
+name: contact-management
+description: This skill should be used when the user asks to "add a contact", "update contact info", "organize contacts", "find a contact", "manage contact groups", "import contacts", or is working with contact data in Missive.
 ---
 
 ## Core Principles

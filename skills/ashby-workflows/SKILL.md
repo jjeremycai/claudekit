@@ -1,5 +1,5 @@
 ---
-name: Ashby Recruiting Workflows
+name: ashby-workflows
 description: This skill should be used when the user asks to "move candidate through pipeline", "schedule an interview", "manage applications", "track hiring progress", "source candidates", "advance to next stage", or mentions recruiting workflows in Ashby. Provides guidance on effective candidate pipeline management and recruiting best practices.
 version: 0.1.0
 ---

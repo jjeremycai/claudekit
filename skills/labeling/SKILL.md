@@ -1,7 +1,6 @@
-# labeling
-
-This skill provides patterns for organizing conversations with labels in Missive. It should be used when Claude is asked to "label this conversation", "organize my inbox", "apply labels", "tag this email", "categorize conversations", or is working on inbox organization tasks.
-
+---
+name: labeling
+description: This skill should be used when the user asks to "label this conversation", "organize my inbox", "apply labels", "tag this email", "categorize conversations", or is working on inbox organization tasks in Missive.
 ---
 
 ## Core Principles

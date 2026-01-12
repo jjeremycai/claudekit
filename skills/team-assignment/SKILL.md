@@ -1,7 +1,6 @@
-# team-assignment
-
-This skill provides patterns for assigning and delegating conversations to team members in Missive. It should be used when Claude is asked to "assign this to", "delegate this email", "who should handle this", "route this conversation", "hand off this thread", or is making decisions about conversation ownership.
-
+---
+name: team-assignment
+description: This skill should be used when the user asks to "assign this to", "delegate this email", "who should handle this", "route this conversation", "hand off this thread", or is making decisions about conversation ownership in Missive.
 ---
 
 ## Core Principles

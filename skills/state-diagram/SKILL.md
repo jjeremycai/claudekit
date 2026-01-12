@@ -1,5 +1,5 @@
 ---
-name: State Diagram Generator
+name: state-diagram
 description: >
   Use when asked to "create state diagram", "map component states",
   "visualize state machine", "analyze state transitions",
