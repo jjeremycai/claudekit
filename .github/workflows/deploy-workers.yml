@@ -29,9 +29,3 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: packages/missive-inbox-worker
-          secrets: |
-            MISSIVE_API_TOKEN
-            ANTHROPIC_API_KEY
-        env:
-          MISSIVE_API_TOKEN: ${{ secrets.MISSIVE_API_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
