@@ -89,6 +89,12 @@ After completing all implementation work, run the quality assurance workflow:
    ```
    This parses review output and spawns engineers to fix critical/warning issues.
 
-3. **Verify** - Run tests and type checking to ensure fixes didn't introduce regressions.
+3. **Simplify** - Run code-simplifier on modified files:
+   ```
+   Task: code-simplifier:code-simplifier
+   Prompt: Simplify the code that was just implemented. Focus on recently modified files only.
+   ```
 
-Only mark work as complete after the review→fix cycle passes with no critical issues.
+4. **Verify** - Run tests and type checking to ensure changes didn't introduce regressions.
+
+Only mark work as complete after the review→fix→simplify cycle passes with no critical issues.

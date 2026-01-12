@@ -133,6 +133,17 @@ List any issues that couldn't be auto-fixed:
 - If some failed: List what needs manual attention
 - If tests fail: Show failure output
 
+### 6. Code Simplification
+
+After all fixes are verified and tests pass, run the code-simplifier agent on modified files:
+
+```
+Task: code-simplifier:code-simplifier
+Prompt: Simplify and refine the code that was just modified by /fix. Focus on the recently changed files only.
+```
+
+This ensures fixes don't introduce unnecessary complexity.
+
 ## Safety
 
 - Never fix suggestions unless `--all` is explicitly passed

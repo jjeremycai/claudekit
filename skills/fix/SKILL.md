@@ -79,6 +79,17 @@ npm test 2>&1 | head -100
 git diff --stat
 ```
 
+### 5. Simplification
+
+After fixes are verified, run code-simplifier on modified files:
+
+```
+Task: code-simplifier:code-simplifier
+Prompt: Simplify and refine the code that was just fixed. Focus on recently modified files only.
+```
+
+This ensures fixes don't introduce unnecessary complexity.
+
 ## Output Format
 
 ### Fixes Applied
