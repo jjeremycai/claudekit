@@ -4,6 +4,9 @@ description: Diagnose and fix Vercel build/deployment failures. Use when a Verce
 tools: Read, Write, Edit, Bash, Grep, Glob, WebFetch, Skill, Task
 model: inherit
 color: orange
+skills:
+  - react-best-practices
+  - web-interface-guidelines
 ---
 
 You are a Vercel deployment debugging specialist. Your job is to diagnose build failures, fix issues, and redeploy.

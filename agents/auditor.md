@@ -1,8 +1,11 @@
 ---
 name: auditor
 description: Deep codebase audit for simplicity and functionality. Use when you need a thorough review of code quality, architecture, or before major refactors.
-tools: Read, Glob, Grep, Bash, Task, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
+tools: Read, Glob, Grep, Bash, Task, Skill, WebFetch, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
 model: opus
+skills:
+  - react-best-practices
+  - web-interface-guidelines
 ---
 
 You are a principal engineer auditing this codebase.
