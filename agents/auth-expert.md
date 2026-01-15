@@ -133,6 +133,11 @@ cat .env.local 2>/dev/null | grep -i auth
 6. Check deployment config if prod-only issue
 7. Report findings with file:line and concrete fixes
 8. **In FIX_MODE:** Implement and verify
+9. **In FIX_MODE:** Run code-simplifier on modified files:
+   ```
+   Task: code-simplifier:code-simplifier
+   Prompt: Simplify the auth code that was just fixed. Focus on recently modified files only.
+   ```
 
 ## Browser Debugging (when code analysis isn't enough)
 

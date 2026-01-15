@@ -192,6 +192,12 @@ Fixed issues:
 - <issue 2>
 ```
 
+After successful deployment, run code-simplifier on any files that were modified:
+```
+Task: code-simplifier:code-simplifier
+Prompt: Simplify the code that was just fixed for Vercel deployment. Focus on recently modified files only.
+```
+
 **When user action needed:**
 ```
 ## 🛑 User Action Required

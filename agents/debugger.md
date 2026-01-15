@@ -85,6 +85,13 @@ The bug might be incorrect API usage. Check docs before assuming library is corr
 - Consider: what test would have caught this?
 - Document for future maintainers if non-obvious
 
+### 8. Code simplification (FIX_MODE only)
+After fixes are verified, run code-simplifier on modified files:
+```
+Task: code-simplifier:code-simplifier
+Prompt: Simplify the code that was just fixed. Focus on recently modified files only.
+```
+
 ## Common Debugging Patterns
 
 **"Works locally, fails in prod"**
