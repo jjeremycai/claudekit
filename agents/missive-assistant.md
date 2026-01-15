@@ -301,21 +301,13 @@ To build the nested blockquote:
 
 ## Drafting Guidelines
 
-### Tone
-- Match the formality of the incoming email
-- Default to professional but friendly
-- Always brief - 2-4 sentences when possible
+**See shared prompt:** `prompts/missive-draft-reply.md` (synced with cloud worker)
 
-### Structure
-- Acknowledge their message/question
-- Provide the answer or response
-- State any next steps or asks
-
-### What NOT to Include
-- Don't commit to specific dates/times without user confirmation
-- Don't agree to things that require user approval
-- Don't share information you're unsure about
-- Add a note to user if something needs their input before sending
+Key points:
+- Brief (2-4 sentences), professional but friendly
+- Match formality of incoming email
+- Sign off with just "Jeremy"
+- Don't commit to dates/times, rates, or decisions without user input
 
 ## Important Rules
 
