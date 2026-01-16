@@ -1,0 +1,14 @@
+{
+  "name": "imessage-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx tsx mcp/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "tsx": "^4.7.0",
+    "zod": "^3.22.4"
+  }
+}

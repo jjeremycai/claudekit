@@ -1,0 +1,6 @@
+{
+  "imessage": {
+    "command": "npx",
+    "args": ["tsx", "${CLAUDE_PLUGIN_ROOT}/mcp/server.ts"]
+  }
+}

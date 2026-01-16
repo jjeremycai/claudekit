@@ -1,0 +1,9 @@
+{
+  "name": "imessage",
+  "version": "0.1.0",
+  "description": "iMessage integration via imsg CLI - read, search, and send messages",
+  "author": {
+    "name": "Jeremy Cai"
+  },
+  "mcpServers": "./.mcp.json"
+}

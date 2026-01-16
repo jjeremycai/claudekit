@@ -16,6 +16,12 @@
       "source": "./ashby",
       "description": "Ashby ATS integration with MCP server",
       "version": "0.1.0"
+    },
+    {
+      "name": "imessage",
+      "source": "./imessage",
+      "description": "iMessage integration via imsg CLI",
+      "version": "0.1.0"
     }
   ]
 }
