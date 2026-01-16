@@ -13,15 +13,22 @@ Update existing documentation to match current codebase using the @writer agent.
 # Find all documentation
 fd -e md
 
-# Check staleness (docs vs code last modified)
-echo "=== Last doc update ==="
-git log -1 --format="%ai %s" -- "*.md"
+# Check if git repo, then check staleness
+if git rev-parse --git-dir > /dev/null 2>&1; then
+  echo "=== Last doc update ==="
+  git log -1 --format="%ai %s" -- "*.md"
 
-echo "=== Last code update ==="
-git log -1 --format="%ai %s" -- "src/" "lib/" "*.ts" "*.js" "*.py" "*.go" "*.rs"
+  echo "=== Last code update ==="
+  git log -1 --format="%ai %s" -- "src/" "lib/" "*.ts" "*.js" "*.py" "*.go" "*.rs"
 
-# Recent code changes since last doc update
-git log --oneline --since="$(git log -1 --format='%ai' -- '*.md')" -- src/ lib/
+  # Recent code changes since last doc update
+  git log --oneline --since="$(git log -1 --format='%ai' -- '*.md')" -- src/ lib/
+else
+  echo "=== Not a git repo - using file timestamps ==="
+  # Fall back to file modification times
+  echo "Recent docs:" && ls -lt *.md 2>/dev/null | head -5
+  echo "Recent code:" && find src/ lib/ -type f \( -name "*.ts" -o -name "*.js" -o -name "*.py" -o -name "*.go" -o -name "*.rs" \) -exec ls -lt {} + 2>/dev/null | head -5
+fi
 ```
 
 ### 2. Spawn @writer Agent

@@ -2,6 +2,7 @@
 name: code-reviewer
 description: Reviews code for bugs, security, and best practices. Supports both focused change review (REVIEW_MODE) and deep codebase audits (AUDIT_MODE).
 tools: Read, Glob, Grep, Bash, Task, Skill, WebFetch, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__get-library-docs
+# Note: If Context7 MCP is not configured, skip library verification steps and flag uncertain API usage as "possible" confidence rather than "certain"
 model: inherit
 color: red
 skills:
@@ -22,13 +23,13 @@ Detect your invocation context to determine the appropriate mode:
 
 **AUDIT_MODE** — Deep codebase audit:
 - Whole codebase scope
-- Load cto-audit skill: `Skill: cto-audit`
+- Load cto-audit skill: `Skill: cto-audit` (if unavailable, proceed with the methodology in this file)
 - Spawn focused subagents as needed
 - Output: prioritized findings (broken → overcomplicated → misused → incomplete)
 
-**Mode Detection:**
+**Mode Detection (in priority order):**
+- "audit", "deep review", "architecture review", "codebase review" → AUDIT_MODE (takes precedence)
 - "review changes", "review PR", "review this" → REVIEW_MODE
-- "audit", "deep review", "architecture review", "codebase review" → AUDIT_MODE
 - Default to REVIEW_MODE if unclear
 
 ---
@@ -165,6 +166,8 @@ Each subagent should also think deeply:
 - API/routes audit
 - Frontend state audit
 - Auth flow audit
+
+**Subagent constraints:** Subagents must be read-only (no Bash commands that modify state), must not include full file contents verbatim in their prompts, and must report findings back to the parent agent for synthesis.
 
 ### Output Format (AUDIT_MODE)
 

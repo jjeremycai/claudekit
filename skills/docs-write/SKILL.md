@@ -15,14 +15,14 @@ Before spawning the writer, gather context:
 # Project type and dependencies
 cat package.json 2>/dev/null || cat Cargo.toml 2>/dev/null || cat go.mod 2>/dev/null || cat requirements.txt 2>/dev/null
 
-# Existing documentation
-fd -e md -d 2
+# Existing documentation (use Glob tool: pattern "**/*.md")
+ls *.md 2>/dev/null
 
 # Project structure
 ls -la src/ 2>/dev/null || ls -la lib/ 2>/dev/null || ls -la
 ```
 
-### 2. Spawn @writer Agent
+### 2. Spawn Writer Agent
 
 Launch a single @writer agent with WRITE_MODE:
 
