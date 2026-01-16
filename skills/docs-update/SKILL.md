@@ -5,13 +5,41 @@ description: This skill should be used when the user asks to "update docs", "syn
 
 Update existing documentation to match current codebase using the @writer agent.
 
-## Execution
+## Step 1: Ask Preferences
 
-### 1. Identify Documentation State
+Before starting, ask the user:
+
+```
+AskUserQuestion:
+  question: "What should the update focus on?"
+  header: "Focus"
+  options:
+    - label: "Full sync (Recommended)"
+      description: "Update all outdated sections, add missing features, remove deprecated"
+    - label: "New features only"
+      description: "Only document features added since last update"
+    - label: "Accuracy check"
+      description: "Fix incorrect examples and commands, don't add new content"
+```
+
+If existing docs have diagrams, also ask:
+
+```
+AskUserQuestion:
+  question: "Update architecture diagrams?"
+  header: "Diagrams"
+  options:
+    - label: "Yes, update diagrams"
+      description: "Sync diagrams with current architecture"
+    - label: "No, skip diagrams"
+      description: "Only update text content"
+```
+
+## Step 2: Identify Documentation State
 
 ```bash
-# Find all documentation
-fd -e md
+# Find all documentation (or use Glob tool: pattern "**/*.md")
+ls *.md 2>/dev/null
 
 # Check if git repo, then check staleness
 if git rev-parse --git-dir > /dev/null 2>&1; then
@@ -25,15 +53,14 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
   git log --oneline --since="$(git log -1 --format='%ai' -- '*.md')" -- src/ lib/
 else
   echo "=== Not a git repo - using file timestamps ==="
-  # Fall back to file modification times
   echo "Recent docs:" && ls -lt *.md 2>/dev/null | head -5
-  echo "Recent code:" && find src/ lib/ -type f \( -name "*.ts" -o -name "*.js" -o -name "*.py" -o -name "*.go" -o -name "*.rs" \) -exec ls -lt {} + 2>/dev/null | head -5
+  echo "Recent code:" && find src/ lib/ -type f \( -name "*.ts" -o -name "*.js" -o -name "*.py" \) -mtime -7 2>/dev/null | head -5
 fi
 ```
 
-### 2. Spawn @writer Agent
+## Step 3: Spawn Writer Agent
 
-Launch a single @writer agent with UPDATE_MODE:
+Launch @writer with user's preferences:
 
 ```
 Task: writer
@@ -41,6 +68,8 @@ Prompt: |
   Update documentation to match current codebase.
 
   MODE: UPDATE_MODE
+  FOCUS: [from user selection]
+  UPDATE_DIAGRAMS: [yes/no from user selection]
 
   Process:
   1. Read current documentation
@@ -48,20 +77,14 @@ Prompt: |
   3. Identify gaps, inaccuracies, outdated sections
   4. Update in-place, preserving good content
 
-  Focus on:
-  - New features not documented
-  - Changed APIs or configuration
-  - Deprecated features still documented
-  - Incorrect examples or commands
-
   Existing docs:
-  [List from step 1]
+  [List from step 2]
 
   Recent code changes:
-  [Summary from step 1]
+  [Summary from step 2]
 ```
 
-### 3. Verification
+## Step 4: Verification
 
 After @writer completes:
 
@@ -83,7 +106,6 @@ git diff -- README.md | head -100
 
 **Added:**
 - New section for feature X
-- Configuration options for Y
 
 **Updated:**
 - API endpoint examples
@@ -103,4 +125,4 @@ git diff -- README.md | head -100
 - Preserve existing structure where possible
 - Don't rewrite good documentation
 - Focus on accuracy over style
-- If docs are severely outdated, suggest /docs-write instead
+- If docs are severely outdated (>50% needs rewriting), suggest /docs-write instead
