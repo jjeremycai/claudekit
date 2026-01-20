@@ -1,4 +1,4 @@
-# Claude Toolkit
+# Claudekit
 
 Personal Claude Code plugin marketplace. Agents, skills, commands, and MCP plugins.
 
@@ -6,11 +6,11 @@ Personal Claude Code plugin marketplace. Agents, skills, commands, and MCP plugi
 
 ```bash
 # Via plugin install
-claude plugin install jjeremycai/claude-toolkit
+claude plugin install jjeremycai/claudekit
 
 # Or manually
-git clone https://github.com/jjeremycai/claude-toolkit.git
-claude --plugin-dir /path/to/claude-toolkit
+git clone https://github.com/jjeremycai/claudekit.git
+claude --plugin-dir /path/to/claudekit
 ```
 
 ## Architecture
